@@ -106,8 +106,23 @@ namespace CustomerApp.Infrastructure.Data
                 DeliverDate = DateTime.Now,
                 Customer = cust2
             });
+            var admin = ctx.Users.Add(new User()
+            {
+                Username = "admin",
+                Password = "admin",
+                AccessLvl = 0
+            });
+
+            var user = ctx.Users.Add(new User()
+            {
+                Username = "User",
+                Password = "1234",
+                AccessLvl = 5
+            });
 
             ctx.SaveChanges();
         }
+
     }
+
 }

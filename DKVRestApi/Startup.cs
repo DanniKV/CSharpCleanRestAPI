@@ -82,6 +82,9 @@ namespace DKVRestApi
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IOrderService, OrderService>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
             //For Ignoring Loop References
             services.AddMvc().AddJsonOptions(Options => {
                 Options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
