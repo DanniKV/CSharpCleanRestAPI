@@ -8,12 +8,18 @@ namespace CustomerApp.Core.ApplicationService.Services
 {
     public class CustomerService: ICustomerService
     {
-        readonly ICustomerRepository _customerRepo;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        //Dependency Injection
+        readonly ICustomerRepository _customerRepo;
+        readonly IOrderRepository _orderRepository;
+
+        public CustomerService(ICustomerRepository customerRepository, 
+            IOrderRepository orderRepository)
         {
             _customerRepo = customerRepository;
+            _orderRepository = orderRepository;
         }
+        //
 
         public Customer NewCustomer(string firstName, string lastName, string address)
         {
@@ -53,16 +59,33 @@ namespace CustomerApp.Core.ApplicationService.Services
 
         public Customer UpdateCustomer(Customer customerUpdate)
         {
+            return _customerRepo.Update(customerUpdate);
+            /*
             var customer = FindCustomerById(customerUpdate.Id);
             customer.FirstName = customerUpdate.FirstName;
             customer.LastName = customerUpdate.LastName;
             customer.Address = customerUpdate.Address;
-            return customer;
+            return customer; */
         }
 
         public Customer DeleteCustomer(int id)
         {
             return _customerRepo.Delete(id);
+        }
+
+        public Customer FindCustomerByIdIncludeOrders(int id)
+        {
+            var customer = _customerRepo.ReadyByIdIncludeOrders(id);
+            return customer;
+
+            /* OLD method
+
+            customer.Orders = _orderRepository.ReadAll()
+                .Where(order => order.Customer.Id == customer.Id).ToList();
+
+            return customer;
+
+            */
         }
     }
 }

@@ -11,9 +11,4 @@
     <Compile Remove="ApplicationService\Dm,urki.cs" />
     <Compile Remove="ApplicationService\Implementation\CustomerService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DomainService\" />
-    <Folder Include="ApplicationService\" />
-    <Folder Include="ApplicationService\Services\" />
-  </ItemGroup>
 </Project>
